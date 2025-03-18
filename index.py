@@ -7,7 +7,7 @@ from pydantic import BaseModel
 from starlette.responses import FileResponse
 
 # Hugging Face API Endpoint
-HF_API_URL = "YOUR_HUGGINGFACE_MODEL_ENDPOINT"
+HF_API_URL = "https://huggingface.co/spaces/A1Project/Strength-Gain-Predictor"
 
 app = FastAPI()
 
