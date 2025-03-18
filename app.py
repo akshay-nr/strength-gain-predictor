@@ -16,6 +16,10 @@ class PredictionInput(BaseModel):
     curing_days: int
     fly_ash_content: int
 
+@app.get("/")
+def home():
+    return {"message": "Strength Gain Predictor API is running. Use /predict for predictions."}
+
 # 🔹 Manually inserting dataset (Filtered: Removed 0.48 w/c ratio)
 w_c_ratio = [0.36, 0.40, 0.44, 0.52] * 4
 curing_days = [7] * 8 + [28] * 8
