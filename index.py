@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from starlette.responses import FileResponse
 
-# Hugging Face API Endpoint
+# ✅ Hugging Face API Endpoint (Updated)
 HF_API_URL = "https://huggingface.co/spaces/A1Project/Strength-Gain-Predictor"
 
 app = FastAPI()
@@ -20,7 +20,7 @@ class PredictionInput(BaseModel):
 def home():
     return {"message": "Strength Gain Predictor API is running. Use /predict for predictions."}
 
-# 🔹 Manually inserting dataset (Filtered: Removed 0.48 w/c ratio)
+# 🔹 Dataset (Filtered: Removed 0.48 w/c ratio)
 w_c_ratio = [0.36, 0.40, 0.44, 0.52] * 4
 curing_days = [7] * 8 + [28] * 8
 fly_ash_content = [22] * 4 + [33] * 4 + [22] * 4 + [33] * 4
@@ -44,6 +44,7 @@ df = pd.DataFrame(data)
 X = df[['w/c_ratio', 'curing_days', 'fly_ash_content']]
 y = df['compressive_strength']
 
+# ✅ Function to query Hugging Face API
 def query_huggingface(payload):
     response = requests.post(HF_API_URL, json=payload)
     return response.json()
@@ -58,7 +59,7 @@ def predict_strength(data: PredictionInput):
     prediction = query_huggingface(input_data)
     predicted_strength = prediction.get("predicted_strength", 0)
 
-    # Generate corrected trend graph
+    # 🔹 Generate Strength Prediction Trend Graph
     curing_days_range = np.linspace(7, 90, 15)
     predicted_values = [
         query_huggingface({"w/c_ratio": data.w_c_ratio, "curing_days": d, "fly_ash_content": data.fly_ash_content}).get("predicted_strength", 0)
