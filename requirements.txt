@@ -1,8 +1,8 @@
 fastapi
 uvicorn
-pydantic
-starlette
 numpy
 pandas
 matplotlib
 requests
+pydantic
+starlette
